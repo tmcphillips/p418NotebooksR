@@ -124,7 +124,9 @@ $(document).ready(function () {
 </div>
 
 
+<p>Step 1: Create a variable for a spatial search location.</p>
 <pre class="r"><code>location &lt;- c(-105.2705,40.015)</code></pre>
+<p>Step 2: Convert array to GeoJSON FeatureCollection.</p>
 <pre class="r"><code>#install.packages(&quot;geojson&quot;)
 library(geojson)</code></pre>
 <pre><code>## 
@@ -136,13 +138,18 @@ library(geojson)</code></pre>
 feature &lt;- geojson::feature(point)
 feature_collection &lt;- geojson::featurecollection(feature)
 feature_collection_str &lt;- geo_pretty(feature_collection)</code></pre>
+<p>Step 3: Set type of search for spatial search.</p>
 <pre class="r"><code>search_type &lt;- &quot;spatial/search/object&quot;</code></pre>
+<p>Step 4: Set the request domain URL for the geodex web service. Please see <a href="http://geodex.org/swagger-ui/" class="uri">http://geodex.org/swagger-ui/</a> for a complete description of the web service call formats.</p>
 <pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
 request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
+<p>Step 5: Create an R list data structure to hold URL submission parameters</p>
 <pre class="r"><code>params_list &lt;- list(geowithin = feature_collection_str)</code></pre>
+<p>Step 6: Make call to the Geodex RESTful web service using the requests package.</p>
 <pre class="r"><code>library(httr)
 r &lt;- GET(request_url, query = params_list)
 results &lt;- content(r, &quot;text&quot;, encoding = &quot;ISO-8859-1&quot;)</code></pre>
+<p>Step 7: Expore results.</p>
 <pre class="r"><code>library(rjson)
 results_json &lt;- fromJSON(results)
 features &lt;- results_json$features

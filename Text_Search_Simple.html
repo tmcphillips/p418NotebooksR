@@ -124,15 +124,22 @@ $(document).ready(function () {
 </div>
 
 
+<p>Step 1: Create a variable to holding text search value</p>
 <pre class="r"><code>text_search_value &lt;- &quot;carbon&quot;</code></pre>
+<p>Step 2: Set the number of results to return per provider.</p>
 <pre class="r"><code>number_of_results &lt;- 100</code></pre>
+<p>Step 3: Set type of search to harvest top n results per provider.</p>
 <pre class="r"><code>search_type &lt;- &quot;textindex/searchset&quot;</code></pre>
-<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;</code></pre>
-<pre class="r"><code>request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
+<p>Step 4: Set the request domain URL for the geodex web service. Please see <a href="http://geodex.org/swagger-ui/" class="uri">http://geodex.org/swagger-ui/</a> for a complete description of the web service call formats.</p>
+<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
+request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
+<p>Step 5: Create an R list data structure to hold URL submission parameters</p>
 <pre class="r"><code>params_list &lt;- list(q = text_search_value, s = 0, n = toString(number_of_results))</code></pre>
+<p>Step 6: Make call to the Geodex RESTful web service using the requests package.</p>
 <pre class="r"><code>library(httr)
 r &lt;- GET(request_url, query = params_list)
 results &lt;- content(r, &quot;text&quot;, encoding = &quot;ISO-8859-1&quot;)</code></pre>
+<p>Step 7: Examine the JSON output in a user friendly way.</p>
 <pre class="r"><code>library(rjson)
 results_json &lt;- fromJSON(results)
 for (i in c(1:length(results_json))){
@@ -175,12 +182,15 @@ for (i in c(1:length(results_json))){
 ## [1] &quot;Position = 3&quot;
 ## [1] &quot;Score = 0.9&quot;
 ## [1] &quot;URL = http://data.neotomadb.org/datasets/15957/&quot;</code></pre>
+<p>Step 8: Now set the type of search to harvest top n results across all providers.</p>
 <pre class="r"><code>search_type &lt;- &quot;textindex/search&quot;</code></pre>
-<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;</code></pre>
-<pre class="r"><code>request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
-<pre class="r"><code>params_list &lt;- list(q = text_search_value, s = 0, n = toString(number_of_results))</code></pre>
+<p>Step 9: Set the new request domain URL for the geodex web service. Please see <a href="http://geodex.org/swagger-ui/" class="uri">http://geodex.org/swagger-ui/</a> for a complete description of the web service call formats.</p>
+<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
+request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
+<p>Step 10: Make call to the Geodex RESTful web service using the requests package.</p>
 <pre class="r"><code>r &lt;- GET(request_url, query = params_list)
 results &lt;- content(r, &quot;text&quot;, encoding = &quot;ISO-8859-1&quot;)</code></pre>
+<p>Step 11: Examine the JSON output in a user friendly way.</p>
 <pre class="r"><code>results_json &lt;- fromJSON(results)
 for (i in c(1:length(results_json))){
   print(paste(&quot;Position =&quot;, results_json[[i]]$position))

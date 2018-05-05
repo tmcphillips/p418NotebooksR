@@ -5,9 +5,13 @@ output:
     df_print: paged
 ---
 
+Step 1: Create a variable for a spatial search location.
+
 ```{r}
 location <- c(-105.2705,40.015)
 ```
+
+Step 2: Convert array to GeoJSON FeatureCollection.
 
 ```{r}
 #install.packages("geojson")
@@ -19,24 +23,34 @@ feature_collection <- geojson::featurecollection(feature)
 feature_collection_str <- geo_pretty(feature_collection)
 ```
 
+Step 3: Set type of search for spatial search.
+
 ```{r}
 search_type <- "spatial/search/object"
 ```
+
+Step 4: Set the request domain URL for the geodex web service. Please see http://geodex.org/swagger-ui/ for a complete description of the web service call formats.
 
 ```{r}
 domain_url <- "http://geodex.org/api/v1/"
 request_url <- paste(domain_url, search_type, sep="")
 ```
 
+Step 5: Create an R list data structure to hold URL submission parameters
+
 ```{r}
 params_list <- list(geowithin = feature_collection_str)
 ```
+
+Step 6: Make call to the Geodex RESTful web service using the requests package.
 
 ```{r}
 library(httr)
 r <- GET(request_url, query = params_list)
 results <- content(r, "text", encoding = "ISO-8859-1")
 ```
+
+Step 7: Expore results.
 
 ```{r}
 library(rjson)
