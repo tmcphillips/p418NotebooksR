@@ -1,19 +1,65 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Geodex Spatial Search"
+output:
+  html_document:
+    df_print: paged
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-plot(cars)
+location <- c(-105.2705,40.015)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+#install.packages("geojson")
+library(geojson)
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+point <- geojson::point(paste('{ "type": "Point", "coordinates": [', location[1], ',' , location[2], '] }'))
+feature <- geojson::feature(point)
+feature_collection <- geojson::featurecollection(feature)
+feature_collection_str <- geo_pretty(feature_collection)
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+search_type <- "spatial/search/object"
+```
+
+```{r}
+domain_url <- "http://geodex.org/api/v1/"
+request_url <- paste(domain_url, search_type, sep="")
+```
+
+```{r}
+params_list <- list(geowithin = feature_collection_str)
+```
+
+```{r}
+library(httr)
+r <- GET(request_url, query = params_list)
+results <- content(r, "text", encoding = "ISO-8859-1")
+```
+
+```{r}
+library(rjson)
+results_json <- fromJSON(results)
+features <- results_json$features
+number_of_results <- length(features)
+first_result <- features[[1]]
+
+url <- first_result$properties$URL
+geometry <- first_result$geometry$type
+coordinates <- first_result$geometry$coordinates[[1]]
+
+print(paste("Number of Results =", number_of_results))
+print(paste("URL of First Result =", url))
+print(paste("Coordinates of First Result = ", coordinates))
+```
+
+
+
+
+
+
+
+
+
 

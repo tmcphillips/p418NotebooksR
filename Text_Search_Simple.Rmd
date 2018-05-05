@@ -1,19 +1,84 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Geodex Text Search"
+output:
+  html_document:
+    df_print: paged
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-plot(cars)
+text_search_value <- "carbon"
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+number_of_results <- 100
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+```{r}
+search_type <- "textindex/searchset"
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+domain_url <- "http://geodex.org/api/v1/"
+```
+
+```{r}
+request_url <- paste(domain_url, search_type, sep="")
+```
+
+```{r}
+params_list <- list(q = text_search_value, s = 0, n = toString(number_of_results))
+```
+
+```{r}
+library(httr)
+r <- GET(request_url, query = params_list)
+results <- content(r, "text", encoding = "ISO-8859-1")
+```
+
+```{r}
+library(rjson)
+results_json <- fromJSON(results)
+for (i in c(1:length(results_json))){
+  print(paste("Index =", results_json[[i]]$index))
+  print(paste("High Score =", results_json[[i]]$highscore))
+  print(paste("Number of Results =", length(results_json[[i]]$or)))
+}
+```
+```{r}
+for (i in c(1:length(results_json[[1]]$or))){
+  print(paste("Position =", results_json[[1]]$or[[i]]$position))
+  print(paste("Score =", results_json[[1]]$or[[i]]$score))
+  print(paste("URL =", results_json[[1]]$or[[i]]$URL))
+}
+```
+
+```{r}
+search_type <- "textindex/search"
+```
+
+```{r}
+domain_url <- "http://geodex.org/api/v1/"
+```
+
+```{r}
+request_url <- paste(domain_url, search_type, sep="")
+```
+
+```{r}
+params_list <- list(q = text_search_value, s = 0, n = toString(number_of_results))
+```
+
+```{r}
+r <- GET(request_url, query = params_list)
+results <- content(r, "text", encoding = "ISO-8859-1")
+```
+
+```{r}
+results_json <- fromJSON(results)
+for (i in c(1:length(results_json))){
+  print(paste("Position =", results_json[[i]]$position))
+  print(paste("Score =", results_json[[i]]$score))
+  print(paste("URL =", results_json[[i]]$URL))
+}
+```
 
