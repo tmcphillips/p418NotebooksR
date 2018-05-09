@@ -497,6 +497,50 @@ for (i in c(1:length(results_json))){
 ## [1] &quot;Position = 99&quot;
 ## [1] &quot;Score = 0.32&quot;
 ## [1] &quot;URL = http://opencoredata.org/id/dataset/a73f0af5-464a-4514-9383-d7b5f82864cd&quot;</code></pre>
+<p>Step 12: Retrieve information about a selected URL resource.</p>
+<pre class="r"><code>dataset_url &lt;- &quot;http://get.iedadata.org/doi/310660&quot;</code></pre>
+<p>Step 13: Set the web service call for extracting a set of metadata.</p>
+<pre class="r"><code>search_type &lt;- &quot;graph/details&quot;</code></pre>
+<p>Step 14: Create the URL for the RESTful web service call.</p>
+<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
+request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
+<p>Step 15: Create the GET parameter for this call.</p>
+<pre class="r"><code>params_list &lt;- list(r = dataset_url)</code></pre>
+<p>Step 16: Execute the RESTful web service call.</p>
+<pre class="r"><code>r &lt;- GET(request_url, query = params_list)
+results &lt;- content(r, &quot;text&quot;, encoding = &quot;ISO-8859-1&quot;)</code></pre>
+<p>Step 17: Print the results in a user friendly way.</p>
+<pre class="r"><code>results_json &lt;- fromJSON(results)
+results_json</code></pre>
+<pre><code>## $S
+## [1] &quot;DOI:10.1594/IEDA/310660&quot;
+## 
+## $Aname
+## [1] &quot;&quot;
+## 
+## $Name
+## [1] &quot;&quot;
+## 
+## $URL
+## [1] &quot;http://get.iedadata.org/doi/310660&quot;
+## 
+## $Description
+## [1] &quot;Abstract: This data set was acquired with a ship-based Navigation system during Robert D. Conrad expedition RC1011 conducted in 1966 (Chief Scientist: Dr. Charles Fray). These data files are of Text File (ASCII) format and include Navigation data and were processed after data collection.&quot;
+## 
+## $Citation
+## [1] &quot;Fray, Charles (2009), Processed ship-based Navigation Data acquired during the Robert D. Conrad expedition RC1011 (1966). Interdisciplinary Earth Data Alliance (IEDA). doi:10.1594/IEDA/310660&quot;
+## 
+## $Datepublished
+## [1] &quot;2009&quot;
+## 
+## $Curl
+## [1] &quot;&quot;
+## 
+## $Keywords
+## [1] &quot;Navigation:Primary&quot;
+## 
+## $License
+## [1] &quot;Creative Commons Attribution-NonCommercial-Share Alike 3.0 United States [CC BY-NC-SA 3.0]&quot;</code></pre>
 
 
 

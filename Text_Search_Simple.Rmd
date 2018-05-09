@@ -93,3 +93,41 @@ for (i in c(1:length(results_json))){
 }
 ```
 
+Step 12: Retrieve information about a selected URL resource.
+
+```{r}
+dataset_url <- "http://get.iedadata.org/doi/310660"
+```
+
+Step 13: Set the web service call for extracting a set of metadata.
+
+```{r}
+search_type <- "graph/details"
+```
+
+Step 14: Create the URL for the RESTful web service call.
+
+```{r}
+domain_url <- "http://geodex.org/api/v1/"
+request_url <- paste(domain_url, search_type, sep="")
+```
+
+Step 15: Create the GET parameter for this call.
+
+```{r}
+params_list <- list(r = dataset_url)
+```
+
+Step 16: Execute the RESTful web service call.
+
+```{r}
+r <- GET(request_url, query = params_list)
+results <- content(r, "text", encoding = "ISO-8859-1")
+```
+
+Step 17: Print the results in a user friendly way.
+
+```{r}
+results_json <- fromJSON(results)
+results_json
+```
