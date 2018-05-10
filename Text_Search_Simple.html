@@ -511,36 +511,26 @@ request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
 results &lt;- content(r, &quot;text&quot;, encoding = &quot;ISO-8859-1&quot;)</code></pre>
 <p>Step 17: Print the results in a user friendly way.</p>
 <pre class="r"><code>results_json &lt;- fromJSON(results)
-results_json</code></pre>
-<pre><code>## $S
-## [1] &quot;DOI:10.1594/IEDA/310660&quot;
-## 
-## $Aname
-## [1] &quot;&quot;
-## 
-## $Name
-## [1] &quot;&quot;
-## 
-## $URL
-## [1] &quot;http://get.iedadata.org/doi/310660&quot;
-## 
-## $Description
-## [1] &quot;Abstract: This data set was acquired with a ship-based Navigation system during Robert D. Conrad expedition RC1011 conducted in 1966 (Chief Scientist: Dr. Charles Fray). These data files are of Text File (ASCII) format and include Navigation data and were processed after data collection.&quot;
-## 
-## $Citation
-## [1] &quot;Fray, Charles (2009), Processed ship-based Navigation Data acquired during the Robert D. Conrad expedition RC1011 (1966). Interdisciplinary Earth Data Alliance (IEDA). doi:10.1594/IEDA/310660&quot;
-## 
-## $Datepublished
-## [1] &quot;2009&quot;
-## 
-## $Curl
-## [1] &quot;&quot;
-## 
-## $Keywords
-## [1] &quot;Navigation:Primary&quot;
-## 
-## $License
-## [1] &quot;Creative Commons Attribution-NonCommercial-Share Alike 3.0 United States [CC BY-NC-SA 3.0]&quot;</code></pre>
+print(paste(&quot;URI =&quot;, results_json$S))</code></pre>
+<pre><code>## [1] &quot;URI = DOI:10.1594/IEDA/310660&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Alternate Name =&quot;, results_json$Aname))</code></pre>
+<pre><code>## [1] &quot;Alternate Name = &quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Name =&quot;, results_json$Name))</code></pre>
+<pre><code>## [1] &quot;Name = &quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;URL =&quot;, results_json$URL))</code></pre>
+<pre><code>## [1] &quot;URL = http://get.iedadata.org/doi/310660&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Description =&quot;, results_json$Description))</code></pre>
+<pre><code>## [1] &quot;Description = Abstract: This data set was acquired with a ship-based Navigation system during Robert D. Conrad expedition RC1011 conducted in 1966 (Chief Scientist: Dr. Charles Fray). These data files are of Text File (ASCII) format and include Navigation data and were processed after data collection.&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Citation =&quot;, results_json$Citation))</code></pre>
+<pre><code>## [1] &quot;Citation = Fray, Charles (2009), Processed ship-based Navigation Data acquired during the Robert D. Conrad expedition RC1011 (1966). Interdisciplinary Earth Data Alliance (IEDA). doi:10.1594/IEDA/310660&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Data Published =&quot;, results_json$Datepublished))</code></pre>
+<pre><code>## [1] &quot;Data Published = 2009&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Dataset Download Link =&quot;, results_json$Curl))</code></pre>
+<pre><code>## [1] &quot;Dataset Download Link = &quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;Keywords =&quot;, results_json$Keywords))</code></pre>
+<pre><code>## [1] &quot;Keywords = Navigation:Primary&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;License =&quot;, results_json$License))</code></pre>
+<pre><code>## [1] &quot;License = Creative Commons Attribution-NonCommercial-Share Alike 3.0 United States [CC BY-NC-SA 3.0]&quot;</code></pre>
 
 
 

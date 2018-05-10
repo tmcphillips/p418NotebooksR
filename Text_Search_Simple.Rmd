@@ -129,5 +129,14 @@ Step 17: Print the results in a user friendly way.
 
 ```{r}
 results_json <- fromJSON(results)
-results_json
+print(paste("URI =", results_json$S))
+print(paste("Alternate Name =", results_json$Aname))
+print(paste("Name =", results_json$Name))
+print(paste("URL =", results_json$URL))
+print(paste("Description =", results_json$Description))
+print(paste("Citation =", results_json$Citation))
+print(paste("Data Published =", results_json$Datepublished))
+print(paste("Dataset Download Link =", results_json$Curl))
+print(paste("Keywords =", results_json$Keywords))
+print(paste("License =", results_json$License))
 ```
