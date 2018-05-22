@@ -26,7 +26,7 @@ search_type <- "textindex/searchset"
 Step 4: Set the request domain URL for the geodex web service. Please see http://geodex.org/swagger-ui/ for a complete description of the web service call formats. 
 
 ```{r}
-domain_url <- "http://geodex.org/api/v1/"
+domain_url <- "https://geodex.org/api/v1/"
 request_url <- paste(domain_url, search_type, sep="")
 ```
 
@@ -71,7 +71,7 @@ search_type <- "textindex/search"
 Step 9: Set the new request domain URL for the geodex web service. Please see http://geodex.org/swagger-ui/ for a complete description of the web service call formats. 
 
 ```{r}
-domain_url <- "http://geodex.org/api/v1/"
+domain_url <- "https://geodex.org/api/v1/"
 request_url <- paste(domain_url, search_type, sep="")
 ```
 
@@ -108,7 +108,7 @@ search_type <- "graph/details"
 Step 14: Create the URL for the RESTful web service call.
 
 ```{r}
-domain_url <- "http://geodex.org/api/v1/"
+domain_url <- "https://geodex.org/api/v1/"
 request_url <- paste(domain_url, search_type, sep="")
 ```
 

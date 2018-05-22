@@ -141,7 +141,7 @@ feature_collection_str &lt;- geo_pretty(feature_collection)</code></pre>
 <p>Step 3: Set type of search for spatial search.</p>
 <pre class="r"><code>search_type &lt;- &quot;spatial/search/object&quot;</code></pre>
 <p>Step 4: Set the request domain URL for the geodex web service. Please see <a href="http://geodex.org/swagger-ui/" class="uri">http://geodex.org/swagger-ui/</a> for a complete description of the web service call formats.</p>
-<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
+<pre class="r"><code>domain_url &lt;- &quot;https://geodex.org/api/v1/&quot;
 request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
 <p>Step 5: Create an R list data structure to hold URL submission parameters</p>
 <pre class="r"><code>params_list &lt;- list(geowithin = feature_collection_str)</code></pre>
@@ -175,7 +175,7 @@ print(paste(&quot;Number of Results =&quot;, number_of_results))</code></pre>
 <p>Step 9: Set the web service call for extracting a set of metadata.</p>
 <pre class="r"><code>search_type &lt;- &quot;graph/details&quot;</code></pre>
 <p>Step 10: Create the URL for the RESTful web service call.</p>
-<pre class="r"><code>domain_url &lt;- &quot;http://geodex.org/api/v1/&quot;
+<pre class="r"><code>domain_url &lt;- &quot;https://geodex.org/api/v1/&quot;
 request_url &lt;- paste(domain_url, search_type, sep=&quot;&quot;)</code></pre>
 <p>Step 11: Create the GET parameter for this call.</p>
 <pre class="r"><code>params_list &lt;- list(r = dataset_url)</code></pre>
@@ -189,7 +189,7 @@ print(paste(&quot;URI =&quot;, results_json$S))</code></pre>
 <pre class="r"><code>print(paste(&quot;Alternate Name =&quot;, results_json$Aname))</code></pre>
 <pre><code>## [1] &quot;Alternate Name = &quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;Name =&quot;, results_json$Name))</code></pre>
-<pre><code>## [1] &quot;Name = &quot;</code></pre>
+<pre><code>## [1] &quot;Name = Processed ship-based Navigation Data acquired during the Robert D. Conrad expedition RC1011 (1966)&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;URL =&quot;, results_json$URL))</code></pre>
 <pre><code>## [1] &quot;URL = http://get.iedadata.org/doi/310660&quot;</code></pre>
 <pre class="r"><code>print(paste(&quot;Description =&quot;, results_json$Description))</code></pre>
