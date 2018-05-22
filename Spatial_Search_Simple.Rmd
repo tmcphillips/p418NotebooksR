@@ -1,5 +1,5 @@
 ---
-title: "Geodex Spatial Search"
+title: "EarthCube.org Spatial Search"
 output:
   html_document:
     df_print: paged
